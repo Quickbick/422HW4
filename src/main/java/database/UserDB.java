@@ -3,6 +3,7 @@ package database;
 import entities.User;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class UserDB {
     /*
@@ -22,11 +23,16 @@ public class UserDB {
         return usersAdded;
     }
 
-    public static Collection<User> getUsers() {
+    public  Collection<User> getUsers() {
+//        try {
+//            TimeUnit.SECONDS.sleep(10);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return DB.values();
     }
 
-    public static Collection<User> deleteUsers(Collection<User> users) {
+    public  Collection<User> deleteUsers(Collection<User> users) {
         List<User> usersDeleted = new ArrayList<>();
         for (User user : users) {
             usersDeleted.add(DB.remove(user.getId()));

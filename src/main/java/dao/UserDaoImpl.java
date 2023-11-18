@@ -13,6 +13,13 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
+
+    private final UserDB userDB;
+
+    public UserDaoImpl(UserDB userDB) {
+        this.userDB = userDB;
+    }
+
     @Override
     public User saveUser(User user) throws UserNotSavedException, UserDBInconsistentException {
         Collection<User> savedUsers = UserDB.saveUsers(List.of(user));
@@ -23,7 +30,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(int id) throws UserNotFoundException {
-        for (User user : UserDB.getUsers()) {
+        for (User user : userDB.getUsers()) {
             if (user.getId() == id) {
                 return user;
             }
@@ -34,7 +41,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Collection<User> findUsersByRole(Role role) {
         List<User> usersMatchingRole = new ArrayList<>();
-        for (User user : UserDB.getUsers()) {
+        for (User user : userDB.getUsers()) {
             if (user.getRole().equals(role)) {
                 usersMatchingRole.add(user);
             }
@@ -51,7 +58,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User deleteUser(User user) throws UserNotFoundException, UserNotSavedException, UserDBInconsistentException, UserNotDeletedException {
         User userToDelete = getUserById(user.getId());
-        Collection<User> deletedUsers = UserDB.deleteUsers(List.of(userToDelete));
+        Collection<User> deletedUsers = userDB.deleteUsers(List.of(userToDelete));
         if (deletedUsers.isEmpty()) throw new UserNotDeletedException(user);
         if (deletedUsers.size() > 1) throw new UserDBInconsistentException();
         return deletedUsers.iterator().next();
@@ -60,6 +67,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Collection<User> getAllUsers() {
-        return UserDB.getUsers();
+        return userDB.getUsers();
     }
 }

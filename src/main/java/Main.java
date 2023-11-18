@@ -1,6 +1,7 @@
 import Validator.UserValidator;
 import dao.UserDao;
 import dao.UserDaoImpl;
+import database.UserDB;
 import entities.User;
 import exceptions.*;
 import services.UserService;
@@ -9,7 +10,8 @@ import services.UserServiceImpl;
 public class Main {
 
     private static UserService buildUserService() {
-        UserDao userDao = new UserDaoImpl();
+        UserDB userDB = new UserDB();
+        UserDao userDao = new UserDaoImpl(userDB);
         UserValidator validator = new UserValidator();
         return new UserServiceImpl(userDao, validator);
     }
