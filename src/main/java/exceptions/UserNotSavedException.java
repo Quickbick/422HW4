@@ -13,6 +13,6 @@ public class UserNotSavedException extends Throwable {
 
     @Override
     public String getMessage() {
-        return STR. "User:\{ this.user } saving resulted in a problem" ;
+        return "User:" + this.user.toString() + "saving resulted in a problem" ;
     }
 }

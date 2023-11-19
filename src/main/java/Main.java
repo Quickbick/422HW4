@@ -17,7 +17,7 @@ public class Main {
     }
 
     private static void printAllUsers(String lastOperation, UserService userService) {
-        System.out.println(STR. "\nAfter operation-\{ lastOperation }:" );
+        System.out.println("\nAfter operation-" + lastOperation.toString() + ":" );
         System.out.println("-----------");
         for (User user : userService.getAllUsers()) {
             System.out.println(user);

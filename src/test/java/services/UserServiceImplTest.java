@@ -47,7 +47,6 @@ class UserServiceImplTest {
     //pairwise integration test for UserServiceImpl.createUser and UserDao.saveUser
     //Driver functions as UserService.createUser
     //Stubs of UserValidator, User constructor, and UserDB
-    //test does not pass due to static methods
     @Test
     void createUser_save() throws InvalidUserInfoException, UserNotSavedException, UserDBInconsistentException {
         String inputFirst = "John";
@@ -56,18 +55,13 @@ class UserServiceImplTest {
         User expectedUser = mock(User.class);
         List<User> userList = new ArrayList<>();
         userList.add(expectedUser);
-        //attempting static mock did not work
-        //try (MockedStatic<UserDB> mockDB = mockStatic(UserDB.class)){
-            UserDB mockDB = mock(UserDB.class);
-            //this method is static and cannot be mocked normally
-            //when(mockDB.saveUsers(any())).thenReturn(userList);
-            UserDao userDao = new UserDaoImpl(mockDB);
-            UserDao spyDao = spy(userDao);
-            UserValidator mockValidator = mock(UserValidator.class);
-            when(mockValidator.validateUser(any(User.class))).thenReturn(true);
-            UserServiceImpl service = new UserServiceImpl(spyDao, mockValidator);
-            assertEquals(expectedUser, service.createUser(inputFirst, inputLast, inputRole));
-        //}
-
+        UserDB mockDB = mock(UserDB.class);
+        when(mockDB.saveUsers(any())).thenReturn(userList);
+        UserDao userDao = new UserDaoImpl(mockDB);
+        UserDao spyDao = spy(userDao);
+        UserValidator mockValidator = mock(UserValidator.class);
+        when(mockValidator.validateUser(any(User.class))).thenReturn(true);
+        UserServiceImpl service = new UserServiceImpl(spyDao, mockValidator);
+        assertEquals(expectedUser, service.createUser(inputFirst, inputLast, inputRole));
     }
 }

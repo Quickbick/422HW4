@@ -14,7 +14,7 @@ public class UserDB {
     private static final Map<Integer, User> DB = new HashMap<>();
     private static int userIndex = 1;
 
-    public static Collection<User> saveUsers(Collection<User> users) {
+    public Collection<User> saveUsers(Collection<User> users) {
         List<User> usersAdded = new ArrayList<>();
         for (User user : users) {
             if (user.getId() == -1) user.setId(userIndex++);

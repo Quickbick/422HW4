@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User saveUser(User user) throws UserNotSavedException, UserDBInconsistentException {
-        Collection<User> savedUsers = UserDB.saveUsers(List.of(user));
+        Collection<User> savedUsers = userDB.saveUsers(List.of(user));
         if (savedUsers.isEmpty()) throw new UserNotSavedException(user);
         if (savedUsers.size() > 1) throw new UserDBInconsistentException();
         return savedUsers.iterator().next();

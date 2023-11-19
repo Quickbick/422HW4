@@ -12,6 +12,6 @@ public class UserNotDeletedException extends Throwable {
 
     @Override
     public String getMessage() {
-        return STR. "User: \{ this.user } not deleted" ;
+        return "User:" + this.user.toString() + "not deleted" ;
     }
 }

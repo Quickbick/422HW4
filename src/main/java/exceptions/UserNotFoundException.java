@@ -10,6 +10,6 @@ public class UserNotFoundException extends Throwable {
 
     @Override
     public String getMessage() {
-        return STR. "User corresponding to id \{ this.id } not found" ;
+        return "User corresponding to id" + this.id +  "not found" ;
     }
 }

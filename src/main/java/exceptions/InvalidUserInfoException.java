@@ -12,6 +12,6 @@ public class InvalidUserInfoException extends Throwable {
 
     @Override
     public String getMessage() {
-        return STR. "User: \{ this.user } information is invalid" ;
+        return "User:" + this.user.toString() + "information is invalid" ;
     }
 }
